@@ -1,0 +1,28 @@
+@import url('layout.css');
+@import url('forms.css');
+@import url('table.css');
+@import url('messagebox.css');
+@import url('button.css');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+h3 {
+    color: #333;
+}
+
+input {
+    padding: 8px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.error-input {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+
