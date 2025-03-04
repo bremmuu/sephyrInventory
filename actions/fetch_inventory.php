@@ -1,28 +1,28 @@
 <?php
 session_start();
+header("Content-Type: application/json"); // Ensure JSON response
+
 if (!isset($_SESSION['user_id'])) {
     http_response_code(403); // Forbidden
-    exit("Access Denied");
+    echo json_encode(["status" => "error", "message" => "Access Denied"]);
+    exit();
 }
 
 include __DIR__ . '/../db/db_connect.php';
 
 $query = "SELECT * FROM products";
-if ($result = $mysqli->prepare($query)) {
-    $result->execute();
-    $result->bind_result($id, $name, $quantity, $price);
+$result = $mysqli->query($query);
 
-    while ($result->fetch()) {
-        echo "<tr>
-                <td>{$id}</td>
-                <td>{$name}</td>
-                <td>{$quantity}</td>
-                <td>\${$price}</td>
-              </tr>";
+if ($result) {
+    $products = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row; // Add each row as an array element
     }
-    $result->close();
+
+    echo json_encode(["status" => "success", "data" => $products]);
 } else {
-    echo "Error: " . $mysqli->error;
+    echo json_encode(["status" => "error", "message" => "Error: " . $mysqli->error]);
 }
 
 $mysqli->close();

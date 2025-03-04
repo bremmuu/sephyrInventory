@@ -47,13 +47,16 @@ $(document).ready(function () {
     // DELETE PRODUCT
     $("#deleteProductForm").submit(function (event) {
         event.preventDefault();
+        if (!validateInputs(this)) return;
+    
         $.ajax({
             type: "POST",
             url: "/actions/delete_product.php",
             data: $(this).serialize(),
+            dataType: "json",
             success: function (response) {
-                showMessage(response, "success");
-                loadInventory();
+                showMessage(response.message, response.status);
+                loadInventory(); 
                 $("#deleteProductForm")[0].reset();
             },
             error: function () {
@@ -87,11 +90,31 @@ $(document).ready(function () {
         $.ajax({
             url: "/actions/fetch_inventory.php",
             type: "GET",
-            success: function (data) {
-                $("#inventoryTableBody").html(data);
+            dataType: "json", // Expect JSON response
+            success: function (response) {
+                if (response.status === "success") {
+                    let tableBody = $("#inventoryTableBody");
+                    tableBody.empty(); // Clear existing rows
+                    
+                    response.data.forEach(product => {
+                        tableBody.append(`
+                            <tr>
+                                <td>${product.id}</td>
+                                <td>${product.name}</td>
+                                <td>${product.quantity}</td>
+                                <td>$${product.price}</td>
+                            </tr>
+                        `);
+                    });
+                } else {
+                    showMessage(response.message, "error"); // Show error message if failed
+                }
             },
+            error: function () {
+                showMessage("Error loading inventory!", "error");
+            }
         });
-    }
+    }    
 
     // SHOW MESSAGE FUNCTION
     function showMessage(message, type) {

@@ -11,9 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sidi", $name, $quantity, $price, $id);
 
     if ($stmt->execute()) {
-        echo "Product updated successfully!";
+        echo json_encode(["status" => "success", "message" => "Product updated successfully!"]);
     } else {
-        echo "Error: " . $stmt->error;
+        echo json_encode(["status" => "error", "message" => "Error: " . $stmt->error]);
     }
 
     $stmt->close();

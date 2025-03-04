@@ -14,8 +14,8 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/assets/blueTumn.png">
-    <link rel="stylesheet" href="/css/style.css">
     <title>sephyrStocks</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
