@@ -1,5 +1,5 @@
 <footer>
-        <p>&copy; <?php echo date("Y"); ?> Inventory System</p>
+        <p>&copy; <?php echo date("Y"); ?> sephyrStocks</p>
     </footer>
 </body>
 </html>

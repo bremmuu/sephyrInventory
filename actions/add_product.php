@@ -10,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sid", $name, $quantity, $price);
 
     if ($stmt->execute()) {
-        echo "Product added successfully!";
+        echo json_encode(["status" => "success", "message" => "Product added successfully!"]);
     } else {
-        echo "Error: " . $stmt->error;
+        echo json_encode(["status" => "error", "message" => "Error: " . $stmt->error]);
     }
 
     $stmt->close();

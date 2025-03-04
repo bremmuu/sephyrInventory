@@ -1,3 +1,13 @@
+<?php
+session_start();
+include __DIR__ . '/../db/db_connect.php';
+include __DIR__ . '/../components/header.php';
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /public/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

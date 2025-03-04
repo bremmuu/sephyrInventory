@@ -1,3 +1,7 @@
+<?php if (isset($_SESSION['user_id'])): ?>
+    <a href="/auth/logout.php" class="logout-btn">Logout</a>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

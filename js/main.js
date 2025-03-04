@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     // Fade in effect
     $(".container").hide().fadeIn(800);
 
@@ -11,8 +12,9 @@ $(document).ready(function () {
             type: "POST",
             url: "/actions/add_product.php",
             data: $(this).serialize(),
+            dataType: "json", // Expect JSON response
             success: function (response) {
-                showMessage(response, "success");
+                showMessage(response.message, response.status);
                 loadInventory();
                 $("#addProductForm")[0].reset();
             },
